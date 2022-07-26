@@ -1,32 +1,42 @@
 #python function for plotting the data in csv_data
 import os
-import glob
 import matplotlib.pyplot as plt
 import pandas as pd
 import csv   
 
-directoryPath = os.path.join("c:\\","/Users/cpapalaz/dam-water-level/csv_data/")
-
-#print csv files and choose
-
-#extract date range and variable values for the csv file
-for file in glob.glob(directoryPath+"*.csv"):
-    f=open(file, "r")
-    lines = f.readlines()[1:]
-    reader = csv.reader(lines, delimiter=",")
+def dam_variables_plot(directoryPath):
+    f=open(directoryPath, "r")
+    lines = f.readlines()[1:] #skip column headers
+    reader = csv.reader(lines, delimiter=",") 
     date_range =[]
     var_values = []
     for row in reader:
         date_range.append(row[0])
         var_values.append(row[1])  
+
+    date_range.pop() #remove last item as no data for current day/month
+    var_values.pop()
+
+    var_values_int =[]
+    for val in var_values:
+        val= int(val.replace(',', '')) #convert data to int from string, ignore numerical commas
+        var_values_int.append(val)
+
     #plotting
-    plt.plot(date_range, var_values) 
+    plt.bar(date_range, var_values_int)
 
-    plt.xlabel("Date")
-    plt.ylabel(file[1])
+    plt.xlabel("Month")
+    plt.ylabel("pwr discharge")
 
-    plt.xlim()
-    plt.ylim()
-    plt.title(file)
+    plt.title("Discharge Power Daily")
 
     plt.show()
+
+    #table
+    data = pd.read_csv(directoryPath)
+    df = pd.DataFrame(data)
+
+    print (df)
+
+
+dam_variables_plot("/Users/cpapalaz/dam-water-level/csv_data/discharge_powergen_daily.csv")
