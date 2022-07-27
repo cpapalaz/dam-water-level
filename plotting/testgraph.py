@@ -21,21 +21,25 @@ var_values.pop()
 
 var_values_int =[]
 for val in var_values:
-    val= int(val.replace(',', '')) #convert data to int from string, ignore numerical commas
-    var_values_int.append(val)
+    if "," in val:
+        val= int(val.replace(',', '')) #convert data to int from string, ignore numerical commas
+        var_values_int.append(val)
+    else:
+        val = int(val)
+        var_values_int.append(val)
 
 #plotting
-plt.bar(date_range, var_values_int)
+plt.plot(date_range, var_values_int)
 
 plt.xlabel("Month")
 plt.ylabel("pwr discharge")
 
 plt.title("Discharge Power Daily")
 
-# plt.show()
+plt.show()
 
 #table
-data = pd.read_csv(r"/Users/cpapalaz/dam-water-level/csv_data/discharge_powergen_daily.csv")
+data = pd.read_csv(r"/Users/cpapalaz/dam-water-level/csv_data/res_elevation_daily.csv")
 df = pd.DataFrame(data)
 
 print (df)

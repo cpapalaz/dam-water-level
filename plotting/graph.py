@@ -25,10 +25,10 @@ def dam_variables_plot(directoryPath):
     #plotting
     plt.bar(date_range, var_values_int)
 
-    plt.xlabel("Month")
-    plt.ylabel("pwr discharge")
+    plt.xlabel("date")
+    plt.ylabel("")
 
-    plt.title("Discharge Power Daily")
+    plt.title("")
 
     plt.show()
 
@@ -39,4 +39,5 @@ def dam_variables_plot(directoryPath):
     print (df)
 
 
-dam_variables_plot("/Users/cpapalaz/dam-water-level/csv_data/discharge_powergen_daily.csv")
+#dam_variables_plot("/Users/cpapalaz/dam-water-level/csv_data/discharge_powergen_daily.csv")
+dam_variables_plot("/Users/cpapalaz/dam-water-level/csv_data/res_outflow_daily.csv")
